@@ -9,35 +9,139 @@ import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { BarChart } from '@mui/x-charts/BarChart';
+export const dataset = [
+  {
+    StandardCase_Systems: 59,
+    month: 'Jan',
+  },
+  {
+    london: 50,
+    paris: 52,
+    newYork: 78,
+    seoul: 28,
+    month: 'Feb',
+  }
+];
+export const dataset1 = [
+  {
+    Application_Functionality: 15,
+    comp: 'StandardCase Systems',
+  },
+  {
+    Application_Functionality: 10,
+    comp: 'QuickFix Solutions',
+  },
+  {
+    Application_Functionality: 30,
+    comp: 'JusticeTech Pro',
+  },
+];
+export function valueFormatter(value) {
+  return `${value}mm`;
+}
+export function valueFormatter1(value) {
+  return `${value}`;
+}
+
 // import { PieChart } from '@mui/x-charts/PieChart';
 const myTheme = createTheme({
   components: {
     MuiChartsAxis: {
-      styleOverrides: ({ theme }) => ({
-        '.MuiChartsAxis-label text': {  // <-- Correct selector
-          fill: 'purple',
-          fontSize: '16px',
-          fontWeight: 'bold',
-        },
-        '.MuiChartsAxis-tickLabel text': { // For tick labels
-          fill: 'green',
-        },
-        // For the axis line (if you want to style it):
-        '.MuiChartsAxis-line': {
-          stroke: 'gray',
-        },
-      }),
+       styleOverrides: {
+        root: {
+          '.my-special-chart': { // More specific
+            width: 800
+          },
+          '& .MuiResponsiveChart':{
+            width: "100%",
+            maxWidth: 800
+          },
+          '& .MuiChartsAxis-label': {  // <-- Correct selector
+            fill: 'purple',
+            fontSize: '16px',
+            fontWeight: 'bold',
+          },
+          '& .MuiChartsAxis-tickLabel': { // For tick labels
+            fill: 'green',
+            width:100
+          },
+          // For the axis line (if you want to style it):
+          '& .MuiChartsAxis-line': {
+            stroke: 'gray',
+          },
+          '& .MuiResponsiveChart-container"': {
+            width: "100%",
+            maxWidth: 700
+          },
+        }
+      },
     },
   },
 });
+const chartSetting = {
+  xAxis: [
+    {
+      label: 'rainfall (mm)',
+    },
+  ],
+  width: 500,
+  height: 400,
+};
+const chartSetting1 = {
+  xAxis: [
+    {
+      label: 'Application Functionality',
+    },
+  ],
+  width: 500,
+  height: 400,
+};
 export default function SyncHighlight() {
   const [highlightedItem, setHighLightedItem] = React.useState(null);
   return (
-    <ThemeProvider theme={myTheme}> 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+    <ThemeProvider theme={myTheme}>   
+    <div className="card">
+      <div className="">
+        <h3
+          style={{
+            fontSize:'1.625rem'
+          }}
+        >
+          Technical Specifications
+        </h3>
+        <h4
+          style={{
+            fontSize:'1.25rem'
+          }}
+        >
+          Application Functionality
+        </h4>
+        <p
+          style={{
+            fontSize:'1rem',
+            width:800
+          }}
+        >
+          Tha graph shows that JusticeTech Pro has scroed the heighest when it comes to the applcation functionality whereas the QuickFix Solutions company is lowest
+        </p>
+      </div>
+        <BarChart
+          sx={{
+            width:800
+          }}
+          className="my-special-chart" 
+          dataset={dataset1}
+          yAxis={[{ scaleType: 'band', dataKey: 'comp' }]}
+          series={[{ dataKey: 'Application_Functionality', label: 'Application Functionality', valueFormatter1 }]}
+          layout="horizontal"
+          {...chartSetting1}
+        />
+    </div>
+ 
+      {/* <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid size={4}>
             <BarChart
-            
+             
               {...application_functionality}
               highlightedItem={highlightedItem}
               onHighlightChange={setHighLightedItem}
@@ -92,26 +196,31 @@ export default function SyncHighlight() {
               onHighlightChange={setHighLightedItem}
             />
         </Grid>
-      </Grid>
+      </Grid> */}
     </ThemeProvider>
   )
 }
- 
- 
-const application_functionality = {
+
+export const application_functionality = {
   series: [
     {
-      data: [30, 15, 10, 30],
+      data: [15, 10, 30],
       label:'application_functionality',
       id: 'application_functionality',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  
+  // dataset={dataset}
+  // dataKey: 'tech',
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 30, // Set the maximum to the highest original value
+  }],
   xAxis: [{ 
     label: 'Application Functionality', 
     scaleType: 'band', 
-    data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'],
+    data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'],
     style:''
   }],
   height: 400,
@@ -122,16 +231,21 @@ const application_functionality = {
 
   },
 };
-const level_of_integration = {
+export const level_of_integration = {
   series: [
     {
-      data: [5, 2, 0, 5],
+      data: [ 2, 0, 5],
       label:'level_of_integration',
       id: 'level_of_integration',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{  label: 'Level of Integration', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{  label: 'Level of Integration', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -139,16 +253,21 @@ const level_of_integration = {
     },
   },
 };
-const technical_environment = {
+export const technical_environment = {
   series: [
     {
-      data: [5, 3, 1, 5],
+      data: [ 3, 1, 5],
       label:'technical_environment',
       id: 'technical_environment',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{ label: 'Technical Environment', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{ label: 'Technical Environment', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -156,16 +275,21 @@ const technical_environment = {
     },
   },
 };
-const system_security = {
+export const system_security = {
   series: [
     {
-      data: [5, 3, 0, 5],
+      data: [ 3, 0, 5],
       label:'system_security',
       id: 'system_security',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{ label: 'System Security', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{ label: 'System Security', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -173,16 +297,21 @@ const system_security = {
     },
   },
 };
-const project_implementation_support = {
+export const project_implementation_support = {
   series: [
     {
-      data: [10, 7, 3, 10],
+      data: [7, 3, 10],
       label:'project_implementation_support',
       id: 'project_implementation_support',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{ label:'Project Implementation Support', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 10, // Set the maximum to the highest original value
+  }],
+  xAxis: [{ label:'Project Implementation Support', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -190,16 +319,21 @@ const project_implementation_support = {
     },
   },
 };
-const user_support_training = {
+export const user_support_training = {
   series: [
     {
-      data: [5, 3, 1, 5],
+      data: [ 3, 1, 5],
       label:'user_support_training',
       id: 'user_support_training',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{  label:'User Support Training', scaleType: 'band', data: ['base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{  label:'User Support Training', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -207,16 +341,21 @@ const user_support_training = {
     },
   },
 };
-const proposer_background_experience = {
+export const proposer_background_experience = {
   series: [
     {
-      data: [5, 3, 2, 5],
+      data: [3, 2, 5],
       label:'proposer_background_experience',
       id: 'proposer_background_experience',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{ label:'Proposer Background Experience', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{ label:'Proposer Background Experience', scaleType: 'band', data: ['StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -224,16 +363,21 @@ const proposer_background_experience = {
     },
   },
 };
-const system_testing_acceptance = {
+export const system_testing_acceptance = {
   series: [
     {
-      data: [5, 3, 1, 5],
+      data: [ 3, 1, 5],
       label:'system_testing_acceptance',
       id: 'system_testing_acceptance',
       highlightScope: { highlight: 'item', fade: 'global' },
     },
   ],
-  xAxis: [{ label:'System Testing Acceptance', scaleType: 'band', data: ['Base', 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
+  yAxis: [{
+    label: 'Criteria Score',
+    min: 0, // Set the minimum to 0
+    max: 5, // Set the maximum to the highest original value
+  }],
+  xAxis: [{ label:'System Testing Acceptance', scaleType: 'band', data: [ 'StandardCase Systems', 'QuickFix Solutions', 'JusticeTech Pro'] }],
   height: 400,
   slotProps: {
     legend: {
@@ -243,82 +387,3 @@ const system_testing_acceptance = {
 };
 
  
-//  const  dt = {
-//   evaluation: {
-//    criteria: {
-//      technical: {
-//        weight: 70,
-//        scores: {
-//          application_functionality: 30,
-//          level_of_integration: 5,
-//          technical_environment: 5,
-//          system_security: 5,
-//          project_implementation_support: 10,
-//          user_support_training: 5,
-//          proposer_background_experience: 5,
-//          system_testing_acceptance: 5
-//         }
-//       },
-//       cost: {
-//        weight: 30
-//       }
-//     },
-//     proposals: [
-//       {
-//        name:"StandardCase Systems",
-//        technical_scores: {
-//          application_functionality: 15,
-//          level_of_integration: 2,
-//          technical_environment: 3,
-//          system_security: 3,
-//          project_implementation_support: 7,
-//          user_support_training: 3,
-//          proposer_background_experience: 3,
-//          system_testing_acceptance: 3
-//         },
-//        total_technical_score: 39,
-//        cost: 80000,
-//        cost_score: 30,
-//        total_score: 69
-//       },
-//       {
-//        name:"QuickFix Solutions",
-//        technical_scores: {
-//          application_functionality: 10,
-//          level_of_integration: 0,
-//          technical_environment: 1,
-//          system_security: 0,
-//          project_implementation_support: 3,
-//          user_support_training: 1,
-//          proposer_background_experience: 2,
-//          system_testing_acceptance: 1
-//         },
-//        total_technical_score: 18,
-//        cost: 10000,
-//        cost_score: 30,
-//        total_score: 48
-//       },
-//       {
-//        name:"JusticeTech Pro",
-//        technical_scores: {
-//          application_functionality: 30,
-//          level_of_integration: 5,
-//          technical_environment: 5,
-//          system_security: 5,
-//          project_implementation_support: 10,
-//          user_support_training: 5,
-//          proposer_background_experience: 5,
-//          system_testing_acceptance: 5
-//         },
-//        total_technical_score: 70,
-//        cost: 165000,
-//        cost_score: 20,
-//        total_score: 90
-//       }
-//     ],
-//     summary: {
-//       highest_scoring_proposal:"JusticeTech Pro",
-//       lowest_scoring_proposal:"QuickFix Solutions"
-//     }
-//   }
-// }

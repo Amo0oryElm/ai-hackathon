@@ -1,9 +1,36 @@
  
 .container{
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 body{
   background-color: white;
   height: 100%;
+}
+.chart{}
+.pie{
+  margin-top: 5rem;
+}
+.card{
+  width: 50%;
+  min-width: 760px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(234, 234, 234, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(61, 71, 81, 0.3);
+  border-image: initial;
+}
+.MuiResponsiveChart-container {
+  width: 800px;
+}
+.my-special-chart {
+  width: 800px !important;
 }
