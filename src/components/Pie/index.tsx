@@ -1,35 +1,35 @@
 import * as React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
-import { application_functionality } from "../";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Grid from "@mui/material/Grid2";
+// import { application_functionality } from "../";
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import Grid from "@mui/material/Grid2";
 import Typography from '@mui/material/Typography';
 import { Box, Stack } from "@mui/material";
 
-const myTheme = createTheme({
-  components: {
-    MuiChartsAxis: {
-      styleOverrides: {
-        root: {
-          "& .MuiChartsAxis-label": {
-            // <-- Correct selector
-            fill: "purple",
-            fontSize: "16px",
-            fontWeight: "bold",
-          },
-          "& .MuiChartsAxis-tickLabel": {
-            // For tick labels
-            fill: "green",
-          },
-          // For the axis line (if you want to style it):
-          "& .MuiChartsAxis-line": {
-            stroke: "gray",
-          },
-        },
-      },
-    },
-  },
-});
+// const myTheme = createTheme({
+//   components: {
+//     MuiChartsAxis: {
+//       styleOverrides: {
+//         root: {
+//           "& .MuiChartsAxis-label": {
+//             // <-- Correct selector
+//             fill: "purple",
+//             fontSize: "16px",
+//             fontWeight: "bold",
+//           },
+//           "& .MuiChartsAxis-tickLabel": {
+//             // For tick labels
+//             fill: "green",
+//           },
+//           // For the axis line (if you want to style it):
+//           "& .MuiChartsAxis-line": {
+//             stroke: "gray",
+//           },
+//         },
+//       },
+//     },
+//   },
+// });
 export default function BasicPie() {
     const value = 39; // Example value
     const value2 = 18; // Example value
@@ -43,7 +43,7 @@ export default function BasicPie() {
   
     React.useEffect(() => {
         if (chartRef.current) {
-          const chartBounds = chartRef.current.getBoundingClientRect();
+        //   const chartBounds = chartRef.current.getBoundingClientRect();
  
           const centerX =  150;
           const centerY =  150;
@@ -55,7 +55,9 @@ export default function BasicPie() {
       console.log(centerPosition)
     
   return (
-    <ThemeProvider theme={myTheme}>
+    // <ThemeProvider 
+    // theme={myTheme}
+    // >
          <Stack direction="row" width="100%" textAlign="center" spacing={2}>
             <Box flexGrow={1}>
                 <Typography>StandardCase Systems</Typography>
@@ -173,7 +175,7 @@ export default function BasicPie() {
                 />
             </Box>
          </Stack>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
  

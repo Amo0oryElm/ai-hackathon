@@ -1,13 +1,4 @@
-import * as React from 'react';
-// import Stack from '@mui/material/Stack';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import { platforms } from './webUsageStats';
-import Grid from '@mui/material/Grid2';
-import { axisClasses } from '@mui/x-charts/ChartsAxis';
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import { BarChart } from '@mui/x-charts/BarChart';
 export const dataset = [
   {
@@ -36,14 +27,9 @@ export const dataset1 = [
     comp: 'JusticeTech Pro',
   },
 ];
-export function valueFormatter(value) {
-  return `${value}mm`;
-}
 export function valueFormatter1(value) {
   return `${value}`;
 }
-
-// import { PieChart } from '@mui/x-charts/PieChart';
 const myTheme = createTheme({
   components: {
     MuiChartsAxis: {
@@ -78,26 +64,9 @@ const myTheme = createTheme({
     },
   },
 });
-const chartSetting = {
-  xAxis: [
-    {
-      label: 'rainfall (mm)',
-    },
-  ],
-  width: 500,
-  height: 400,
-};
-const chartSetting1 = {
-  xAxis: [
-    {
-      label: 'Application Functionality',
-    },
-  ],
-  width: 500,
-  height: 400,
-};
+ 
 export default function SyncHighlight() {
-  const [highlightedItem, setHighLightedItem] = React.useState(null);
+  // const [highlightedItem, setHighLightedItem] = React.useState(null);
   return (
     <ThemeProvider theme={myTheme}>   
     <div className="card">
