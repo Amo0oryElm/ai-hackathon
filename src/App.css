@@ -1,4 +1,62 @@
+@import "tailwindcss";
+
+:root{
+  --ai-primary: #0E0A2C;
+  --background: #ffffff;
+  --foreground: #171717;
+
+
+
+  /* Typography Colors  */
+  --text-primary:#FAFAFA;
+  --text-primary-light:#FCFCFC;
+  --text-p:#A1A1A1;
+  --text-p-light:#BFBFBF;
+  --text-p-lighter:#E6E6E6;
+  --text-p-dark:#456485;
+  --text-p-darker:#1E3D5F;
+  --border:#2C5886;
+
+  /* Theme colors */
+
  
+
+    /* 763CBC - purple
+FF5D36 - orange
+0171CE - blue */
+
+  --theme-primary:#763CBC;
+  --theme-primary-dark:#4D2A7A;
+  --theme-primary-light:#B28FDB;
+  --theme-primary-xlight:#B28FDB;
+
+  --theme-secondary:#FF5D36;
+  --theme-secondary-dark:#CC4A2B;
+  --theme-secondary-light:#FF9E7F;
+
+  --theme-accent:#0171CE;
+  --theme-accent-dark:#015A9E;
+  --theme-accent-light:#4FA6E6;
+
+  --theme-success: #40C97B;
+
+  --theme-error: #B7372E;
+  --theme-error-light: #D5655D;
+
+  --theme-warning: #F29D50;
+  --theme-warning-dark: #90531D;
+  --theme-warning-darker: #7F542F;
+}
+
+p{
+  font-size: 1rem;
+}
+h1{
+  font-size: 3rem;
+}
+h2{
+  font-size: 2rem;
+}
 .container{
   width: 100vw;
   height: 100%;
@@ -6,7 +64,8 @@
   justify-content: center;
 }
 body{
-  background-color: white;
+  background-color: #0E0A2C;
+  color:white;
   height: 100%;
 }
 .chart{}

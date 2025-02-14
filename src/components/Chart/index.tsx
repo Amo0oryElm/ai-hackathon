@@ -1,5 +1,18 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
+ 
+import { createTheme, ThemeProvider,Components,Theme } from '@mui/material/styles';
+
 import { BarChart } from '@mui/x-charts/BarChart';
+
+ 
+declare module '@mui/material/styles' {
+  interface Components<Theme = {}> {
+    MuiCharts?: {
+      styleOverrides?: any; // Or a more specific type if you know it
+    };
+  }
+}
+
 export const dataset = [
   {
     StandardCase_Systems: 59,
@@ -26,10 +39,13 @@ export const dataset1 = [
     Application_Functionality: 30,
     comp: 'JusticeTech Pro',
   },
-];
-export function valueFormatter1(value) {
+];    
+ 
+export function valueFormatter(value) {
   return `${value}`;
 }
+
+// import { PieChart } from '@mui/x-charts/PieChart';
 const myTheme = createTheme({
   components: {
     MuiChartsAxis: {
@@ -40,23 +56,25 @@ const myTheme = createTheme({
           },
           '& .MuiResponsiveChart':{
             width: "100%",
+            stroke: 'white',
             maxWidth: 800
           },
           '& .MuiChartsAxis-label': {  // <-- Correct selector
-            fill: 'purple',
+            fill: 'white',
             fontSize: '16px',
             fontWeight: 'bold',
           },
           '& .MuiChartsAxis-tickLabel': { // For tick labels
-            fill: 'green',
+            fill: 'white',
             width:100
           },
           // For the axis line (if you want to style it):
           '& .MuiChartsAxis-line': {
-            stroke: 'gray',
+            stroke: 'white',
           },
           '& .MuiResponsiveChart-container"': {
             width: "100%",
+            fill: 'white',
             maxWidth: 700
           },
         }
@@ -64,33 +82,32 @@ const myTheme = createTheme({
     },
   },
 });
- 
+const chartSetting= {
+  xAxis: [
+    {
+      label: 'Application Functionality',
+      colors: ['blue', 'red', 'green'],
+    },
+  ],
+  width: 500,
+  height: 400,
+};
 export default function SyncHighlight() {
-  // const [highlightedItem, setHighLightedItem] = React.useState(null);
-  return (
+   return (
     <ThemeProvider theme={myTheme}>   
-    <div className="card">
-      <div className="">
+    <div className="border border-white rounded-xl flex flex-col p-8">
+      <div className="text-white">
         <h3
-          style={{
-            fontSize:'1.625rem'
-          }}
+        className='text-3xl'
         >
           Technical Specifications
         </h3>
         <h4
-          style={{
-            fontSize:'1.25rem'
-          }}
+         className='text-2xl'
         >
           Application Functionality
         </h4>
-        <p
-          style={{
-            fontSize:'1rem',
-            width:800
-          }}
-        >
+        <p className='text-md w-[800px]' >
           Tha graph shows that JusticeTech Pro has scroed the heighest when it comes to the applcation functionality whereas the QuickFix Solutions company is lowest
         </p>
       </div>
@@ -98,12 +115,16 @@ export default function SyncHighlight() {
           sx={{
             width:800
           }}
-          className="my-special-chart" 
+          className="my-special-chart " 
           dataset={dataset1}
-          yAxis={[{ scaleType: 'band', dataKey: 'comp' }]}
-          series={[{ dataKey: 'Application_Functionality', label: 'Application Functionality', valueFormatter1 }]}
+          yAxis={[{
+             scaleType: 'band', 
+             dataKey: 'comp' ,
+            }]}
+          grid={{ vertical: true }}
+          series={[{ dataKey: 'Application_Functionality', label: 'Application Functionality', valueFormatter }]}
           layout="horizontal"
-          {...chartSetting1}
+          {...chartSetting}
         />
     </div>
  

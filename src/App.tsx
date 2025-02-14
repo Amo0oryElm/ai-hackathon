@@ -1,31 +1,44 @@
 import './App.css'
-import Chart from './components/Chart'
-import Pie from './components/Pie'
-function App() {
+import Form from './components/Form';
+// import Chart from './components/Chart'
+import Home from './components/home'
+import Evaluation from './components/Evaluation'
+// import Pie from './components/Pie'
+import Logo from './assets/elm-logo.svg'
+ 
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
+function App() {
   return (
-    <div className='container'>
-        {/* <h4
-          style={{
-            fontSize:'2.5rem'
-          }}
-        >
-          Bar graphs , shows how each compnay scores against one of the criteria
-        </h4> */}
-      <div className='chart'>
-        <Chart/>
+    <Router>
+      <nav
+      style={{
+      position:'fixed',
+      top:0,
+      width:'100%',
+      background: "rgba(255, 255, 255, 0.5)",
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+      backdropFilter:"blur(12.9px)",
+      border:"1px solid rgba(255, 255, 255, 0.44)",
+      padding:'1rem',
+      zIndex:100
+      }}
+      >
+        <Link to="/">
+            <img
+            className='ml-auto px-8'
+            src={Logo}/>
+        </Link>
+      </nav>
+      <div className="mt-[200px]">
+        <Routes>
+          <Route path="/proposal_evaluator" element={<Form />} />
+          <Route path="/evaluation" element={<Evaluation />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
       </div>
-      {/* <h4
-          style={{
-            fontSize:'2.5rem'
-          }}
-        >
-          Pie Chart, the total criterion score for each company
-        </h4>
-      <div className='pie'>
-        <Pie/>
-      </div> */}
-    </div>
+  </Router>
+    
   )
 }
 
