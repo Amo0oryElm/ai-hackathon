@@ -104,7 +104,7 @@ interface IReturnsOnInvestment {
             </ul> */}
           </section>
           <section className="mt-4 flex flex-col gap-4 w-full my-6">
-            <Pyramid/>
+            {/* <Pyramid/> */}
             {/* <h2>Competitive Advantages</h2>
             <ul className="list-inside list-disc">
               <li>Government Integration</li>
