@@ -397,11 +397,7 @@ function OurSolution(){
                     </Typography>
 
                 </div>
-              <Typography 
-              sx={{fontSize:'0.875rem'}}
-              variant="body2" color="white">
-                {card.description}
-              </Typography>
+              
             </CardContent>
           </CardActionArea>
         </Card>
