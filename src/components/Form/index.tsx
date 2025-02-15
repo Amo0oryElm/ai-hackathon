@@ -50,6 +50,8 @@ export default function UploadForm() {
   };
   
   const handleProposalFilesChange = (files: File | FileList | File[]): void => {
+    console.log("files")
+    console.log(files)
     if (files instanceof FileList) {
       setProposalFiles(Array.from(files));
     } else if (Array.isArray(files)) {

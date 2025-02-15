@@ -8,9 +8,12 @@ import { alpha } from '@mui/material/styles';
         main: '#763CBC',
         contrastText: '#FAFAFA',
       },
+      // secondary: {
+      //   main: '#763CBC',
+      //   contrastText: '#031830'
+      // },
       secondary: {
-        main: '#763CBC',
-        contrastText: '#031830'
+        main: '#FF5D36',
       },
       error: {
         main: '#B7372E',
@@ -197,7 +200,7 @@ export const tableTheme = createTheme(theme,{
           MuiTableHead: {
             styleOverrides: {
               root: {
-                backgroundColor: 'transp',
+                backgroundColor: 'transparent',
                 background: "rgba(255, 255, 255, 0.2)",
                 boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
                 backdropFilter: "blur(5px)",
@@ -226,6 +229,48 @@ export const tableTheme = createTheme(theme,{
                 backgroundColor: 'red', // Or a custom color
               },
             }),
+          },
+          
+          MuiTabs: {
+            styleOverrides: {
+              root: {
+                // Styles for the Tabs component itself
+               /* From https://css.glass */
+                background: "transparent",
+                // boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                // backdropFilter: "blur(7.5px)"
+              },
+              indicator: {
+                backgroundColor: "white", // Example indicator color
+                height: 3, // Example indicator height
+              },
+            },
+          },
+          MuiTab: {
+            styleOverrides: {
+              root: {
+                // Styles for individual Tab components
+                textTransform: 'none', // Example: Prevent uppercase text
+                fontSize: '1.25rem', // Example font size
+                color: 'white', // Example text color (inactive tabs)
+                '&.Mui-selected': { // Styles for the selected tab
+                  color: "white", // Example selected text color
+                  fontWeight: 'bold',
+                },
+              },
+            },
+          },
+          MuiAppBar: {
+            styleOverrides: {
+              root: {
+                backgroundColor: 'transparent',
+                background: "transparent",
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(5px)",
+               
+              },
+              
+            },
           },
       },
 })
