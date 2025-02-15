@@ -19,8 +19,10 @@ const DragDrop = ({onFileUpload, acceptedTypes =[], isMultiple = false, name =''
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files); // Convert FileList to array
       setFiles((prevFiles) => [...prevFiles, ...selectedFiles]); // Add new files to the existing list 
+      onFileUpload(selectedFiles);
     }
   };
+ 
   // const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
   //   const uploadedFile = event.target.files?.[0];
   //   if (uploadedFile && acceptedTypes.includes(uploadedFile.type)) {

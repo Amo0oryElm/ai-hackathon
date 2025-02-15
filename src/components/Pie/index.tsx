@@ -78,9 +78,9 @@ export default function BasicPie({ data: scores }: BasicPieProps): JSX.Element {
     
     Object.entries(scores).forEach(([vendor, criteriaScores]) => {
       const reformatted: ChartDataPoint[] = [];
-      
-      Object.entries(criteriaScores).forEach(([criterion, score]) => {
-        if (criterion !== "Cost" && criterion !== "Total Score") {
+    
+      Object.entries(criteriaScores.scores).forEach(([criterion, score]) => {
+        if (criterion !== "Cost" && (criterion !== "Total Score")) {
           const label = criterion;
           const existingEntry = reformatted.find((entry) => entry.label === label);
 

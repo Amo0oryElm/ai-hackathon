@@ -99,12 +99,13 @@ const myTheme = createTheme({
 
 export default function SyncHighlight({ data: scores }: SyncHighlightProps) {
   const [reformattedData, setReformattedData] = useState<ReformattedData>({});
-
   useEffect(() => {
     const reformatted: ReformattedData = {};
     
     Object.entries(scores).forEach(([vendor, criteriaScores]) => {
-      Object.entries(criteriaScores).forEach(([criterion, score]) => {
+      // console.log("criteriaScores")
+      // console.log(criteriaScores)
+      Object.entries(criteriaScores.scores).forEach(([criterion, score]) => {
         if (criterion !== "Total Score") {
           if (!reformatted[criterion]) {
             reformatted[criterion] = [];

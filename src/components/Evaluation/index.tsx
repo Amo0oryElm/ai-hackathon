@@ -131,8 +131,8 @@ const Evaluation = () => {
                     <div className="my-10 w-full">
                         <BestProposal 
                             explanation={formData.best_proposal.explanation}
-                            score={formData.best_proposal.score}
-                            vendor={formData.best_proposal.vendor}
+                            score={formData.best_proposal.final_score}
+                            vendor={formData.best_proposal.name}
                         />
                     </div>
                     <Divider>
@@ -156,12 +156,12 @@ const Evaluation = () => {
                     </AppBar>
                     <TabPanel value={value} index={0} dir={theme.direction}>
                         <div className="my-10 w-full">
-                            <Chart data={formData.proposal_scores}/>
+                            <Chart data={formData.proposals}/>
                         </div>
                     </TabPanel>
                     <TabPanel value={value} index={1} dir={theme.direction}>
                         <div className="my-10 w-full">
-                            <Pie data={formData.proposal_scores}/>
+                            <Pie data={formData.proposals}/>
                         </div>
                     </TabPanel>
                 </Box>
