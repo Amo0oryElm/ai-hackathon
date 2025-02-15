@@ -40,6 +40,7 @@ function PricingCard() {
        
       {cards.map((card, index) => (
         <Card 
+        key={index+1000}
         sx={{
             borderRadius: '1rem',
             minHeight: 200,

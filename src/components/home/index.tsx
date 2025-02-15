@@ -253,6 +253,7 @@ function TargetMarketCard() {
        
       {cards.map((card, index) => (
         <Card 
+        key={index+200}
         sx={{
             borderRadius: '1rem',
             minHeight: 200,
@@ -345,6 +346,7 @@ function OurSolution(){
        
       {oursolution.map((card, index) => (
         <Card 
+        key={index+10}
         sx={{
             borderRadius: '1rem',
             minHeight: 200,

@@ -64,8 +64,8 @@ const Pyramid = () => {
     }));
 
   }, []); // Empty dependency array ensures this runs only once on mount
-  console.log("options")
-  console.log(options)
+  // console.log("options")
+  // console.log(options)
   return (
     <div>
       <CanvasJSChart options={options} />
