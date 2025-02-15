@@ -39,6 +39,7 @@ const DragDrop = ({onFileUpload, acceptedTypes =[], isMultiple = false, name =''
 
     if (uploadedFile && acceptedTypes.includes(uploadedFile.type)) {
       // Type is now safe because of the check above
+      setFile(uploadedFile)
       onFileUpload(uploadedFile);
     } else {
       if (event.target.files?.length === 0) { // Optional chaining
