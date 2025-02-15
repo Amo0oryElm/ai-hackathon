@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
-import React from "react";
-import BannerIcon from "../../UI/GradientMesh_Light";
+// import React from "react";
+// import BannerIcon from "../../UI/GradientMesh_Light";
 import BannerImage from "../../../assets/GradientMesh_Light.png";
 import { useNavigate } from 'react-router-dom';
 

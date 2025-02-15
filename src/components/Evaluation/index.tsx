@@ -1,12 +1,63 @@
  import Chart from '../Chart'
  import BannerImage from "../../assets/GradientMesh_Light.png";
  import { useLocation } from 'react-router-dom';
-import Table,{BestProposal} from '../Table'
+import Table,{
+    BestProposal
+} from '../Table'
 import {tableTheme} from "../../lib/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
+
+export interface CriteriaDetails {
+    requirement: string;
+    weight: number;
+}
+  
+export interface Criteria {
+    [key: string]: CriteriaDetails;
+}
+export interface CriteriaItem {
+    criteria: string;
+    requirement: string;
+    weight: number;
+}
+export interface Score {
+    Cost: number;
+    Experience: number;
+    ImplementationSupport: number;
+    Integration: number;
+    Security: number;
+    SystemTesting: number;
+    TechnicalEnvironment: number;
+    TechnicalFunctionality: number;
+    UserTraining: number;
+}
+export interface Proposal {
+    VendorName: string;
+    final_score: number;
+    scores: Score;
+  }
+  
+export interface ApiResponse {
+    best_proposal:string,
+    explanation:string,
+    evaluation_criteria: Criteria;
+    proposals: {
+        [proposalId: string]: Proposal; // Index signature for dynamic proposal IDs
+      };
+}
+export interface BasicTableProps {
+    data: Criteria; // Correct prop type
+  }
+ export  interface BestProposalProps {
+    explanation: string;
+    score: number;
+    vendor: string;
+  }
+  
+  
 const Evaluation = () => {
     const location = useLocation();
     const formData = location.state?.data; // Access data from location.state
@@ -30,7 +81,11 @@ const Evaluation = () => {
                         </Typography>
                     </Divider>
                     <div className="my-10 w-full">
-                        <BestProposal data={formData}/>
+                        <BestProposal 
+                            explanation={formData.best_proposal.explanation}
+                            score={formData.best_proposal.score}
+                            vendor={formData.best_proposal.vendor}
+                        />
                     </div>
                     <Divider>
                         <Typography variant="h5" gutterBottom> 

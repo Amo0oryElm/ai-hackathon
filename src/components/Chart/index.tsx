@@ -1,31 +1,41 @@
-import * as React from 'react';
- 
-import { createTheme, ThemeProvider,Components,Theme } from '@mui/material/styles';
-
+import { createTheme, ThemeProvider,
+  // Components,Theme
+ } from '@mui/material/styles';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { SeriesValueFormatter } from '@mui/x-charts/internals';
 
- 
 declare module '@mui/material/styles' {
-  interface Components<Theme = {}> {
-    MuiCharts?: {
-      styleOverrides?: any; // Or a more specific type if you know it
+  interface Components {
+    MuiChartsAxis?: {
+      styleOverrides?: {
+        root?: {
+          [key: string]: any;
+        };
+      };
     };
   }
 }
+// declare module '@mui/material/styles' {
+//   interface Components<Theme = {}> {
+//     MuiCharts?: {
+//       styleOverrides?: any; // Or a more specific type if you know it
+//     };
+//   }
+// }
 
-export const dataset = [
-  {
-    StandardCase_Systems: 59,
-    month: 'Jan',
-  },
-  {
-    london: 50,
-    paris: 52,
-    newYork: 78,
-    seoul: 28,
-    month: 'Feb',
-  }
-];
+// export const dataset = [
+//   {
+//     StandardCase_Systems: 59,
+//     month: 'Jan',
+//   },
+//   {
+//     london: 50,
+//     paris: 52,
+//     newYork: 78,
+//     seoul: 28,
+//     month: 'Feb',
+//   }
+// ];
 export const dataset1 = [
   {
     Application_Functionality: 15,
@@ -41,9 +51,8 @@ export const dataset1 = [
   },
 ];    
  
-export function valueFormatter(value) {
-  return `${value}`;
-}
+export const valueFormatter: SeriesValueFormatter<number | null> = (value: number | null) => `${value}`;
+
 
 // import { PieChart } from '@mui/x-charts/PieChart';
 const myTheme = createTheme({

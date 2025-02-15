@@ -1,30 +1,51 @@
-import React, { useCallback, useState } from "react";
+import  { ChangeEvent,useCallback, useState } from "react";
 
-const DragDrop = ({onFileUpload,acceptedTypes =[], isMultiple = false, name ='', required =false}) => {
+interface DragDropProps {
+  onFileUpload: (files: File | FileList | File[]) => void;
+  acceptedTypes?: string[]; // Make acceptedTypes an array of strings (and optional)
+  isMultiple?: boolean;
+  name?: string;
+  required?: boolean;
+}
+const DragDrop = ({onFileUpload, acceptedTypes =[], isMultiple = false, name ='', required =false}: DragDropProps) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | undefined>();
   const [files, setFiles] = useState<File[]>([]); // Store multiple files
   // const acceptedTypes = ["image/png", "image/jpeg", "application/pdf"]; // Example accepted file types
   const formattedTypes = acceptedTypes.join(", ");
 
   // Handle file input change
-  const handleFilesInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilesInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files); // Convert FileList to array
       setFiles((prevFiles) => [...prevFiles, ...selectedFiles]); // Add new files to the existing list 
     }
   };
-  const handleFileInput = (event) => {
-    const uploadedFile = event.target.files[0];
+  // const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const uploadedFile = event.target.files?.[0];
+  //   if (uploadedFile && acceptedTypes.includes(uploadedFile.type)) {
+  //     setFile(uploadedFile);
+  //     onFileUpload(uploadedFile);
+  //   } else {
+  //       if (event.target?.files.length === 0) {
+  //           return 
+  //       }else{
+  //           alert("Invalid file type. Please upload a valid file.");
+  //       }
+  //   }
+  // };
+  const handleFileInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = event.target.files?.[0]; // Optional chaining
+
     if (uploadedFile && acceptedTypes.includes(uploadedFile.type)) {
-      setFile(uploadedFile);
+      // Type is now safe because of the check above
       onFileUpload(uploadedFile);
     } else {
-        if (event.target.files.length === 0) {
-            return 
-        }else{
-            alert("Invalid file type. Please upload a valid file.");
-        }
+      if (event.target.files?.length === 0) { // Optional chaining
+        return;
+      } else {
+        alert("Invalid file type. Please upload a valid file.");
+      }
     }
   };
   // Handle file drop
@@ -40,7 +61,7 @@ const DragDrop = ({onFileUpload,acceptedTypes =[], isMultiple = false, name ='',
   };
 // Handle file drop
 const handleDrop = useCallback(
-  (event) => {
+  (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(false);
 
@@ -68,7 +89,9 @@ const handleDrop = useCallback(
   // Handle file removal
   const handleRemoveFile = (index: number) => {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Remove file by index
-    setFile(null);
+    if(index < 0){
+      setFile(undefined);
+    }
   };
 
   return (
@@ -152,9 +175,10 @@ const handleDrop = useCallback(
                 <div className="flex items-center justify-between p-3 gap-4 rounded-lg">
                     <span className="text-typography-accent-darker">{file.name}</span>
                     <button
-                    onClick={handleRemoveFile}
-                    className="text-error hover:text-red-700"
-                    >
+                      // onClick={handleRemoveFile}
+                      onClick={() => handleRemoveFile(-1)}
+                      className="text-error hover:text-red-700"
+                      >
                     Remove
                     </button>
                 </div>

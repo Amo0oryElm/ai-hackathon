@@ -1,5 +1,5 @@
 
-import { createTheme } from '@mui/material/styles';
+import { createTheme,Theme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 
  const theme = createTheme({
@@ -53,7 +53,7 @@ import { alpha } from '@mui/material/styles';
         },
         MuiTextField: {
             styleOverrides: {
-              root: ({ theme }) => ({
+              root: ({ theme }:{ theme: Theme }) => ({
                 borderRadius: 6,
                 // Optional: Ensure consistent styling across variants
                 '& label.Mui-focused': {
@@ -80,7 +80,7 @@ import { alpha } from '@mui/material/styles';
           },
           MuiOutlinedInput: {
             styleOverrides: {
-              root: ({ theme }) => ({
+              root: ({theme}: { theme: Theme }) => ({
                 // Base styles
                 // borderRadius: theme.shape.borderRadius,
                 borderRadius: 6,
@@ -213,7 +213,7 @@ export const tableTheme = createTheme(theme,{
             },
           },
           MuiTableRow: {
-            styleOverrides: ({ theme }) => ({
+            styleOverrides: () => ({
               root: {
                 '&:last-child td, &:last-child th': { border: 0 },
               },

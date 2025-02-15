@@ -1,11 +1,11 @@
-import * as React from "react";
-import { useState } from "react";
+// import * as React from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+// import { styled } from "@mui/material/styles";
+// import Paper from "@mui/material/Paper";
 import { ThemeProvider } from "@mui/material/styles";
 import {customTheme} from "../../lib/theme";
 import DragDrop from "../DragAndDrop";
@@ -13,67 +13,118 @@ import { useNavigate } from 'react-router-dom';
 import BannerImage from "../../assets/GradientMesh_Light.png";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+// import { ApiResponse } from "../Evaluation";
 
-const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
+// const Item = styled(Paper)(({ theme }) => ({
+//   padding: theme.spacing(2),
+//   textAlign: "center",
+//   color: theme.palette.text.secondary,
+// }));
+interface ApiResponse {
+  output: string;
+  // Add other response fields as needed
+}
 export default function UploadForm() {
   const navigate = useNavigate();
 
   const [projectName, setProjectName] = useState("");
-  const [rfpFile, setRfpFile] = useState(null);
-  const [proposalFiles, setProposalFiles] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setIsloading] = useState(false);
+  const [rfpFile, setRfpFile] = useState<File | undefined>(undefined);
+  const [proposalFiles, setProposalFiles] = useState<File[] | []>([]);
+  // const [submitted, setSubmitted] = useState<boolean>(false);
+  const [loading, setIsloading] = useState<boolean>(false);
   // const handleClick = () => {
   //   navigate('/evaluation'); // Navigate to the route
   // };
-  const handleProjectNameChange = (event) => {
+  const handleProjectNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setProjectName(event.target.value);
   };
 
-  const handleRfpFileChange = (file) => {
-    setRfpFile(file);
+  const handleRfpFileChange = (files: File | FileList | File[]): void => {
+    if (files instanceof FileList) {
+      setRfpFile(files[0]);
+    } else if (Array.isArray(files)) {
+      setRfpFile(files[0]);
+    } else {
+      setRfpFile(files);
+    }
+  };
+  
+  const handleProposalFilesChange = (files: File | FileList | File[]): void => {
+    if (files instanceof FileList) {
+      setProposalFiles(Array.from(files));
+    } else if (Array.isArray(files)) {
+      setProposalFiles(files);
+    } else {
+      setProposalFiles([files]);
+    }
+  };
+  // const handleProposalFilesChange = (files: File[]) => {
+  //   setProposalFiles(files); // Store FileList object
+  // };
+
+  // const fetchData = async (formData: FormData): Promise<ApiResponse> => {
+  //     try {
+  //       const response = await Promise.race([
+  //         fetch("https://s-abusahab.app.n8n.cloud/webhook/proposals_json", {
+  //             method: "POST",
+  //             body: formData
+  //         }),
+  //         new Promise((_, reject) => setTimeout(() => reject(new Error("Request timed out")), 600000)) // Timeout after 30 seconds
+  //     ]);
+  //       if (!response?.ok) throw new Error("Server error, please try again later.");
+  //     } catch (error) {
+  //       console.error("Error submitting proposal:", error);
+  //       // alert(error.message || "Submission failed. Please try again.");
+  //       // submitBtn.disabled = false;
+  //     } finally {
+  //       // loadingText.style.display = "none";
+  //     }
+  // }
+  const fetchData = async (formData: FormData): Promise<ApiResponse> => {
+    const response = await Promise.race([
+      fetch("https://s-abusahab.app.n8n.cloud/webhook/proposals_json", {
+        method: "POST",
+        body: formData
+      }),
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Request timed out")), 600000)
+      )
+    ]) as Response;
+
+    if (!response?.ok) throw new Error("Server error, please try again later.");
+    return response.json();
   };
 
-  const handleProposalFilesChange = (files) => {
-    console.log("files")
-    console.log(files)
-    setProposalFiles(files); // Store FileList object
-  };
-
-  const handleSubmit = async (event) => {
+  const handleSubmit =  async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     // navigate('/evaluation'); // Navigate to the route
     try {
       event.preventDefault(); // Prevent form from actually submitting
+      if (!rfpFile) {
+        alert("Please select an RFP file");
+        return;
+      }
+
+      if (proposalFiles.length === 0) {
+        alert("Please select at least one proposal file");
+        return;
+      }
+
       setIsloading(true);
       const formData = new FormData();
       // Here you would typically handle the form submission,
       // e.g., send the data to your server.
       formData.append("projectName", projectName);
       formData.append("rfpFile", rfpFile);
-      for(let i =0; i < proposalFiles.length; i++){
-        formData.append("proposals", proposalFiles[i]);
-      }
+       proposalFiles.forEach((file) => {
+        formData.append("proposals", file);
+      });
       // handleFileUpload({projectName,rfpFile,proposalFiles})
       // setSubmitted(true); // Update state to show submission message
-      const response = await Promise.race([
-          fetch("https://s-abusahab.app.n8n.cloud/webhook/proposals_json", {
-              method: "POST",
-              body: formData
-          }),
-          new Promise((_, reject) => setTimeout(() => reject(new Error("Request timed out")), 600000)) // Timeout after 30 seconds
-      ]);
-
-      if (!response.ok) throw new Error("Server error, please try again later.");
+      const response = await fetchData(formData);
+       
       setIsloading(false);
       // Extract HTML response as text
-     
-      const htmlResponse = await response.json();
-      const cleanedResponse = htmlResponse.output.replace(/```json/g, '').replace(/```/g, '').trim();
+      const cleanedResponse = response.output.replace(/```json/g, '').replace(/```/g, '').trim();
 
       // 2. Parse the cleaned string to a JSON object
       const parsedData = JSON.parse(cleanedResponse);
@@ -88,10 +139,10 @@ export default function UploadForm() {
         // loadingText.style.display = "none";
     }
   };
-  const handleFileUpload = (file) => {
-    console.log("Uploaded file:", file);
-    // You can handle file upload logic here (e.g., send to an API)
-  };
+  // const handleFileUpload = (file: File) => {
+  //   console.log("Uploaded file:", file);
+  //   // You can handle file upload logic here (e.g., send to an API)
+  // };
   return (
     <ThemeProvider theme={customTheme}>
       <div className="h-full my-10">
@@ -144,25 +195,28 @@ export default function UploadForm() {
                     isMultiple={true}
                     required
                     name='proposals'
-                    acceptedTypes={["application/pdf"]}
+                    acceptedTypes={["application/pdf"] as string[]}
                 />
               </div>
 
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleSubmit(event as unknown as FormEvent<HTMLFormElement>)}
                 fullWidth
                 type="submit"
               >
                 Submit
               </Button>
 
-              {submitted && (
-                <Typography variant="body1" color="success" align="center">
-                  Form submitted successfully!
-                </Typography>
-              )}
+              {
+              // submitted && (
+              //   <Typography variant="body1" color="success" align="center">
+              //     Form submitted successfully!
+              //   </Typography>
+              // )
+              }
             </Box>
           </div>
         </form>
