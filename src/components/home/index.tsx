@@ -11,8 +11,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-import { useEffect, useRef, useState } from "react";
- import Pyramid from '../Pyramid'
+import { lazy, Suspense , useEffect, useRef, useState } from "react";
+//  import Pyramid from '../Pyramid'
+ const Pyramid = lazy(() => import('../Pyramid')); // Path to your Pyramid component
 
 
 interface IReturnsOnInvestment {
@@ -104,7 +105,10 @@ interface IReturnsOnInvestment {
             </ul> */}
           </section>
           <section className="mt-4 flex flex-col gap-4 w-full my-6">
-            <Pyramid/>
+            <Suspense fallback={<div>Loading ...</div>}>
+               <Pyramid />
+            </Suspense>
+           
             {/* <h2>Competitive Advantages</h2>
             <ul className="list-inside list-disc">
               <li>Government Integration</li>
