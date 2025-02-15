@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
  
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 // const colors = [
 //     "#ffa169", // Bright Orange
@@ -11,6 +10,7 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 //     "#0a1e0b" // Dark Green (Adjusted for better contrast)
 //   ];
 const Pyramid = () => {
+  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
   const [options, setOptions] = useState({
     animationEnabled: true,
     backgroundColor: "transparent",
