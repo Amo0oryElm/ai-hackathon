@@ -130,7 +130,7 @@ const Evaluation = () => {
                     </Divider>
                     <div className="my-10 w-full">
                         <BestProposal 
-                            explanation={formData.best_proposal.explanation}
+                            explanation={formData.best_proposal.reason}
                             score={formData.best_proposal.final_score}
                             vendor={formData.best_proposal.name}
                         />
@@ -150,7 +150,7 @@ const Evaluation = () => {
                         variant="fullWidth"
                         aria-label="full width tabs example"
                         >
-                            <Tab label="Display By Technical Criteria" {...a11yProps(0)} />
+                            <Tab label="Display By Technical Criteria & Cost" {...a11yProps(0)} />
                             <Tab label="Display By Vendor Scores" {...a11yProps(1)} />
                         </Tabs>
                     </AppBar>

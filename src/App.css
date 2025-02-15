@@ -47,7 +47,9 @@ FF5D36 - orange
   --theme-warning-dark: #90531D;
   --theme-warning-darker: #7F542F;
 }
-
+.canvasjs-chart-credit{
+  display: none;
+}
 p{
   font-size: 1rem;
 }

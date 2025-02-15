@@ -125,7 +125,7 @@ export default function SyncHighlight({ data: scores }: SyncHighlightProps) {
     <ThemeProvider theme={myTheme}>
       <div className="border border-white rounded-xl flex flex-col p-8">
         <div className="text-white">
-          <h3 className="text-3xl">Technical Specifications</h3>
+          <h3 className="text-3xl">Evaluations Results</h3>
         </div>
 
         {Object.entries(reformattedData).map(([criterion, data], index) => {
