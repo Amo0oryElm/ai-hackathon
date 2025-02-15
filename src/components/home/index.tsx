@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import { useEffect, useRef, useState } from "react";
- import Pyramid from '../Pyramid'
+//  import Pyramid from '../Pyramid'
 
 
 interface IReturnsOnInvestment {
