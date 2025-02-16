@@ -92,7 +92,7 @@ interface IReturnsOnInvestment {
               number={1}
               width={200}
             />
-            <ReturnsOnInvestment
+            <ReturnsOnInvestment 
               title={"Second Year"}
               subtitle={"50-70 clients, 12-15 million SAR revenue.​"}
               number={2}
