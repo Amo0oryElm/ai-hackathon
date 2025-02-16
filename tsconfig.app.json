@@ -15,6 +15,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
+    "allowJs": true, // Allow importing .js files
+    "checkJs": false, // Optional: Disable type-checking for .js files
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

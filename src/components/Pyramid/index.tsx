@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import CanvasJSReact from '@canvasjs/react-charts';
- 
+import CanvasJSReact from './CanvasJSReact/CanvasJSReact.js'; // Path to your converted component
 
 // const colors = [
 //     "#ffa169", // Bright Orange
