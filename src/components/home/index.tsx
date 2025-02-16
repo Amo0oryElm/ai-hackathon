@@ -32,23 +32,33 @@ interface IReturnsOnInvestment {
         <div className="container relative z-10 mt-5 flex flex-col gap-10">
           <section className="flex flex-col gap-2 w-full my-6">
             <h2>Addressing the Challenge: Vendor Selection</h2>
-            <div className="grid grid-flow-col grid-cols-2 ">
-              <div className="flex flex-col gap-2">
+            <div className="grid grid-flow-col gap-4 grid-cols-3 ">
+              <CardSingle
+              title="Current Approach"
+              subtitle=" Manual evaluation of proposals often leads to inconsistencies,"
+              />
+              <CardSingle
+              title="Our Solution: AI-Powered Evaluation"
+              subtitle="subjectivity, and inefficiencies."
+              />
+            {/* <div 
+                className="bg-gradient-to-r from-purple-900/70 to-purple-800/50 shadow-lg rounded-xl border border-[#B28FDB] backdrop-blur-sm px-12 py-8 w-96 h-48" >
                 <h4 className="text-[24px]">
                   Current Approach
                 </h4>
                 <p className="text-[18px]">
                   Manual evaluation of proposals often leads to inconsistencies,
                 </p>
-              </div>
-              <div className="flex flex-col gap-2">
+              </div> */}
+              {/* <div 
+                className="bg-gradient-to-r from-purple-900/70 to-purple-800/50 shadow-lg rounded-xl border border-[#B28FDB] backdrop-blur-sm px-12 py-8 w-96 h-48" >
                   <h4 className="text-[24px]">
                    Our Solution: AI-Powered Evaluation
                   </h4>
                   <p className="text-[18px]">
                     subjectivity, and inefficiencies.
                   </p>
-              </div>
+              </div> */}
             </div>
            
           </section>
@@ -123,7 +133,67 @@ interface IReturnsOnInvestment {
     </div>
   );
 };
+const CardSingle = ({title, subtitle}: {title: string, subtitle: string}) =>{
 
+  return (
+    <Card 
+    sx={{
+        borderRadius: '1rem',
+        minHeight: 200,
+        border: '1px solid transparent', // Start with transparent border
+        transition: 'border-color 0.3s ease, transform 0.2s ease', // Smooth transitions
+        '&:hover': {
+            borderColor: '#673ab7', // Nice hover border color (adjust as needed)
+            transform: 'scale(1.02)', // Subtle scale on hover
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add a subtle shadow
+        },
+    }}
+    >
+     
+      <CardActionArea
+        sx={{
+            height: '100%',
+            transition: 'background-color 0.3s ease', // Smooth background transition
+            '&[data-active]': {
+              backgroundColor: '#1a2027', // Darker background when active
+            },
+            '&:hover': { // Hover effect when not active
+              backgroundColor: 'rgba(103, 58, 183, 0.1)', // Subtle hover background
+            },
+        }}
+      >
+        <CardContent 
+            className='flex flex-col gap-4 justify-between'
+            sx={{
+            height: '100%',
+            // backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
+            backgroundImage: 'linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(107, 33, 168, 0.5))',
+            backgroundColor:'#1a2027',
+            color: 'white',
+            padding: '1.5rem', // Add some padding
+          }}
+                >
+            <div className="flex flex-col gap-5">
+              {/* <img className="bg-transparent w-[30px]" src={card.icon}/> */}
+                <Typography 
+                    sx={{
+                        fontSize:'2rem'
+                    }}
+                variant="h5" component="div">
+                    {title}
+                </Typography>
+                <Typography
+                sx={{fontSize:'1.25rem'}}
+                variant="body1" color="white">
+                    {subtitle}
+                </Typography>
+
+            </div>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  )
+}
 const ReturnsOnInvestment = ({ title, subtitle, number, width:targetWidth }:IReturnsOnInvestment) => {
   const initialWidth = 10;
   const [width, setWidth] = useState(10);
@@ -187,8 +257,10 @@ const ReturnsOnInvestment = ({ title, subtitle, number, width:targetWidth }:IRet
         style={{
           minWidth: `${width}px`, // Animated width
           transition: 'min-width 0.6s ease', // Smooth transition for non-JS animation (fallback)
+          backgroundImage: 'linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(107, 33, 168, 0.5))',
+          backgroundColor:'#1a2027',
         }}
-        className="bg-[#32156C] border cursor-pointer hover:border-white border-[#4A2C85] py-[5rem] flex items-center h-[100px] rounded-xl text-2xl text-start"
+        className="border cursor-pointer hover:border-white border-[#4A2C85] py-[5rem] flex items-center h-[100px] rounded-xl text-2xl text-start"
       >
         <p className="text-[2rem] font-light mx-5">{number}</p>
       </div>
@@ -288,11 +360,13 @@ function TargetMarketCard() {
             <CardContent 
                 className='flex flex-col gap-4 justify-between'
                 sx={{
-            height: '100%',
-            backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
-            color: 'white',
-            padding: '1.5rem', // Add some padding
-          }}
+                height: '100%',
+                // backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
+                backgroundImage: 'linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(107, 33, 168, 0.5))',
+                backgroundColor:'#1a2027',
+                color: 'white',
+                padding: '1.5rem', // Add some padding
+              }}
                     >
                 <div className="flex flex-col gap-5">
                   <img className="bg-transparent w-[30px]" src={card.icon}/>
@@ -381,11 +455,13 @@ function OurSolution(){
             <CardContent 
                 className='flex flex-col gap-4 justify-between'
                 sx={{
-            height: '100%',
-            backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
-            color: 'white',
-            padding: '1.5rem', // Add some padding
-          }}
+                height: '100%',
+                // backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
+                backgroundImage: 'linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(107, 33, 168, 0.5))',
+                backgroundColor:'#1a2027',
+                color: 'white',
+                padding: '1.5rem', // Add some padding
+              }}
                     >
                 <div className="flex flex-col gap-5">
                   {/* <img className="bg-transparent w-[30px]" src={card.icon}/> */}

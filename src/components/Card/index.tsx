@@ -71,7 +71,9 @@ function PricingCard() {
                 className='flex flex-col gap-4 justify-between'
                 sx={{
             height: '100%',
-            backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
+            // backgroundImage: 'linear-gradient(45deg, #32156C, #0D0A2C, #FF4081)',
+            backgroundImage: 'linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(107, 33, 168, 0.5))',
+            backgroundColor:'#1a2027',
             color: 'white',
             padding: '1.5rem', // Add some padding
           }}

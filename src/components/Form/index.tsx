@@ -133,11 +133,18 @@ export default function UploadForm() {
 
       navigate('/evaluation', { state: { data: parsedData } }); // Pass data in state
 
-    } catch (error) {
-        console.error("Error submitting proposal:", error);
-        // alert(error.message || "Submission failed. Please try again.");
-        // submitBtn.disabled = false;
-    } finally {
+    } catch (error: unknown) {
+      setIsloading(false);
+      console.error("Error submitting proposal:", error);
+      
+      // Type guard to check if error is an Error object
+      if (error instanceof Error) {
+          alert(error.message);
+      } else {
+          alert("Submission failed. Please try again.");
+      }
+  }
+    finally {
         // loadingText.style.display = "none";
     }
   };
