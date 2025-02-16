@@ -78,7 +78,10 @@ interface IReturnsOnInvestment {
             </ul> */}
           </section>
           <section className="flex flex-col gap-4 w-full my-6">
-            <h2>Pricing Strategy</h2>
+            <h2>
+              Pricing Strategy 
+                <small className="text-sm"> "illustrative"</small>
+            </h2>
             <PricingCard />
           </section>
           <section className="mt-4 flex flex-col gap-4 w-full my-6">

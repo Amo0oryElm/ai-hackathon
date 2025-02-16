@@ -84,7 +84,7 @@ export default function UploadForm() {
   // }
   const fetchData = async (formData: FormData): Promise<ApiResponse> => {
     const response = await Promise.race([
-      fetch("https://mosaed.app.n8n.cloud/webhook/proposals_json", {
+      fetch("https://mosaed.app.n8n.cloud/webhook-test/proposals_json", {
         method: "POST",
         body: formData
       }),
