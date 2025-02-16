@@ -24,6 +24,12 @@ function App() {
       zIndex:100
       }}
       >
+        {/* <p className='text-4xl text-black'>
+          AI-Powered Vendor Evaluation
+        </p> */}
+        {/* <p>
+          Shared Technologies services - Absher       
+        </p> */}
         <Link to="/">
             <img
             className='ml-auto px-8'

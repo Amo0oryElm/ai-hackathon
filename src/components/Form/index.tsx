@@ -84,7 +84,7 @@ export default function UploadForm() {
   // }
   const fetchData = async (formData: FormData): Promise<ApiResponse> => {
     const response = await Promise.race([
-      fetch("https://s-abusahab.app.n8n.cloud/webhook/proposals_json", {
+      fetch("https://mosaed.app.n8n.cloud/webhook/proposals_json", {
         method: "POST",
         body: formData
       }),
@@ -126,10 +126,13 @@ export default function UploadForm() {
        
       setIsloading(false);
       // Extract HTML response as text
-      const cleanedResponse = response.output.replace(/```json/g, '').replace(/```/g, '').trim();
+      const cleanedResponse = await response.output
+      console.log("cleanedResponse")
+      console.log(cleanedResponse)
+      // .replace(/```json/g, '').replace(/```/g, '').trim();
 
       // 2. Parse the cleaned string to a JSON object
-      const parsedData = JSON.parse(cleanedResponse);
+      const parsedData = cleanedResponse //JSON.parse(cleanedResponse);
 
       navigate('/evaluation', { state: { data: parsedData } }); // Pass data in state
 
